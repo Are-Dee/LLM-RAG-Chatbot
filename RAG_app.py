@@ -278,7 +278,7 @@ Feel free to ask any questions or interact with our assistant!
         st.write("Please select a Vectorstore:")
 
 # Create a button to trigger file selection
-clicked = st.button("Vectorstore chooser")
+st.button("Vectorstore chooser")
 
 if clicked:
     # Use Streamlit's file uploader to select a file

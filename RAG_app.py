@@ -272,53 +272,38 @@ Feel free to ask any questions or interact with our assistant!
         except:
             pass
 
-    with tab_open_vectorstore:
-        # Open a saved Vectorstore
-        # https://github.com/streamlit/streamlit/issues/1019
-        st.write("Please select a Vectorstore:")
+        with tab_open_vectorstore:
 
-# Create a button to trigger file selection
-st.button("Vectorstore chooser")
+        # Create a button to trigger file selection
+            clicked = st.button("Vectorstore chooser")
 
-if clicked:
-    # Use Streamlit's file uploader to select a file
-    uploaded_file = st.file_uploader("Upload a Vectorstore file", type=['csv', 'txt'])
+            if clicked:
+                # Check inputs before proceeding with file selection
+                error_messages = []
+                if (
+                    not st.session_state.openai_api_key
+                    and not st.session_state.google_api_key
+                    and not st.session_state.hf_api_key
+                ):
+                    error_messages.append("Please enter a valid API key.")
 
-    if uploaded_file is not None:
-        # Process the uploaded file as needed
-        file_contents = uploaded_file.read()
-        st.write("File uploaded successfully!")
-        st.write(file_contents)  # Make dialog appear on top of other windows
+                if (
+                    st.session_state.retriever_type == "Cohere"
+                    and not st.session_state.cohere_api_key
+                ):
+                    error_messages.append("Please enter a valid Cohere API key.")
 
-        st.session_state.selected_vectorstore_name = ""
+                if error_messages:
+                    for msg in error_messages:
+                        st.warning(msg)
+                else:
+                    # Use Streamlit's file uploader to select a directory
+                    uploaded_dir = st.file_uploader("Upload a Vectorstore directory", type=None)
 
-        if clicked:
-            # Check inputs
-            error_messages = []
-            if (
-                not st.session_state.openai_api_key
-                and not st.session_state.google_api_key
-                and not st.session_state.hf_api_key
-            ):
-                error_messages.append("Please enter a valid API key.")
-
-            if (
-                st.session_state.retriever_type == "Cohere"
-                and not st.session_state.cohere_api_key
-            ):
-                error_messages.append("Please enter a valid Cohere API key.")
-
-            if error_messages:
-                for msg in error_messages:
-                    st.warning(msg)
-            else:
-                st.session_state.selected_vectorstore_name = filedialog.askdirectory(
-                    master=root
-                )
-                st.success(
-                    f"ℹ Vectorstore name:\n\n'{st.session_state.selected_vectorstore_name}'"
-                )
-                root.destroy()
+                    if uploaded_dir is not None:
+                        st.success(
+                            f"ℹ Vectorstore name:\n\n'{uploaded_dir.name}'"
+                        )
 
 
 ####################################################################

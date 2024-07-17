@@ -276,13 +276,19 @@ Feel free to ask any questions or interact with our assistant!
         # Open a saved Vectorstore
         # https://github.com/streamlit/streamlit/issues/1019
         st.write("Please select a Vectorstore:")
-        import tkinter as tk
-        from tkinter import filedialog
 
-        clicked = st.button("Vectorstore chooser")
-        root = tk.Tk()
-        root.withdraw()
-        root.wm_attributes("-topmost", 1)  # Make dialog appear on top of other windows
+# Create a button to trigger file selection
+clicked = st.button("Vectorstore chooser")
+
+if clicked:
+    # Use Streamlit's file uploader to select a file
+    uploaded_file = st.file_uploader("Upload a Vectorstore file", type=['csv', 'txt'])
+
+    if uploaded_file is not None:
+        # Process the uploaded file as needed
+        file_contents = uploaded_file.read()
+        st.write("File uploaded successfully!")
+        st.write(file_contents)  # Make dialog appear on top of other windows
 
         st.session_state.selected_vectorstore_name = ""
 
@@ -921,3 +927,4 @@ def chatbot():
 
 if __name__ == "__main__":
     chatbot()
+

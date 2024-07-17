@@ -271,54 +271,22 @@ Feel free to ask any questions or interact with our assistant!
                 st.warning(st.session_state.error_message)
         except:
             pass
-
-    with tab_open_vectorstore:
-        # Open a saved Vectorstore
-        # https://github.com/streamlit/streamlit/issues/1019
+def sidebar_and_document_chooser():
+    with st.expander("Open a saved Vectorstore"):
         st.write("Please select a Vectorstore:")
 
-# Create a button to trigger file selection
-clicked = st.button("Vectorstore chooser")
-
-if clicked:
-    # Use Streamlit's file uploader to select a file
-    uploaded_file = st.file_uploader("Upload a Vectorstore file", type=['csv', 'txt'])
-
-    if uploaded_file is not None:
-        # Process the uploaded file as needed
-        file_contents = uploaded_file.read()
-        st.write("File uploaded successfully!")
-        st.write(file_contents)  # Make dialog appear on top of other windows
-
-        st.session_state.selected_vectorstore_name = ""
+        # Create a button to trigger file selection
+        clicked = st.button("Vectorstore chooser")
 
         if clicked:
-            # Check inputs
-            error_messages = []
-            if (
-                not st.session_state.openai_api_key
-                and not st.session_state.google_api_key
-                and not st.session_state.hf_api_key
-            ):
-                error_messages.append("Please enter a valid API key.")
+            # Use Streamlit's file uploader to select a file
+            uploaded_file = st.file_uploader("Upload a Vectorstore file", type=['csv', 'txt'])
 
-            if (
-                st.session_state.retriever_type == "Cohere"
-                and not st.session_state.cohere_api_key
-            ):
-                error_messages.append("Please enter a valid Cohere API key.")
-
-            if error_messages:
-                for msg in error_messages:
-                    st.warning(msg)
-            else:
-                st.session_state.selected_vectorstore_name = filedialog.askdirectory(
-                    master=root
-                )
-                st.success(
-                    f"ℹ Vectorstore name:\n\n'{st.session_state.selected_vectorstore_name}'"
-                )
-                root.destroy()
+            if uploaded_file is not None:
+                # Process the uploaded file as needed
+                file_contents = uploaded_file.read()
+                st.write("File uploaded successfully!")
+                st.write(file_contents)
 
 
 ####################################################################

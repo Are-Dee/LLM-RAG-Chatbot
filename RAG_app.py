@@ -271,7 +271,8 @@ Feel free to ask any questions or interact with our assistant!
                 st.warning(st.session_state.error_message)
         except:
             pass
-with tab_open_vectorstore:
+
+    with tab_open_vectorstore:
         # Open a saved Vectorstore
         # https://github.com/streamlit/streamlit/issues/1019
         st.write("Please select a Vectorstore:")
@@ -319,6 +320,18 @@ if clicked:
                 )
                 root.destroy()
 
+
+####################################################################
+#        Process documents and create vectorstor (Chroma dB)
+####################################################################
+def delte_temp_files():
+    """delete files from the './data/tmp' folder"""
+    files = glob.glob(TMP_DIR.as_posix() + "/*")
+    for f in files:
+        try:
+            os.remove(f)
+        except:
+            pass
 
 
 def langchain_document_loader():
@@ -914,4 +927,3 @@ def chatbot():
 
 if __name__ == "__main__":
     chatbot()
-

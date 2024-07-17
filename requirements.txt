@@ -4,12 +4,12 @@ glob
 pathlib
 
 # Langchain OpenAI and Google Generative AI
-langchain-openai==<appropriate_version>
-langchain-google-genai==<appropriate_version>
+langchain-openai==0.0.2.post1
+langchain-google-genai==0.0.6
 
 # Langchain components
-langchain-core==<appropriate_version>
-langchain-community==<appropriate_version>
+langchain-core==0.1.16
+langchain-community==0.0.15
 
 # Streamlit for the web app
 streamlit==1.28.0

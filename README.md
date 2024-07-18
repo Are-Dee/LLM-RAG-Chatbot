@@ -33,3 +33,8 @@ To run the app locally:
 6. In the sidebar, select the LLM provider (OpenAI, Google Generative AI or HuggingFace), choose an LLM (GPT-3.5, GPT-4, Gemini-pro or Mistral-7B-Instruct-v0.2), adjust its parameters, and insert your API keys.
 7. Create or load a Chroma vectorstore.
 8. Chat with your documents: ask questions and get 🤖 AI answers.
+
+## Here's how it turned out:
+
+  ![Screenshot from 2024-07-18 10-24-17](https://github.com/user-attachments/assets/dd0c64b0-80ae-4c93-b15e-af0b93b91d5f)
+
